@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+@layer components {
+  .glass {
+    background-color: color-mix(in srgb, #1a2329 50%, transparent);
+    backdrop-filter: blur(16px);
+    border: 1px solid color-mix(in srgb, #242b32 50%, transparent);
+  }
+
+  .glass-strong {
+    background-color: color-mix(in srgb, #1a2329 80%, transparent);
+    backdrop-filter: blur(24px);
+    border: 1px solid color-mix(in srgb, #242b32 60%, transparent);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 30px color-mix(in srgb, #1ea3cf 50%, transparent);
+  }
+
+  .glow-border {
+    box-shadow:
+      0 0 30px color-mix(in srgb, #1ea3cf 20%, transparent),
+      inset 0 0 20px color-mix(in srgb, #1ea3cf 5%, transparent);
+  }
+}
+
+@layer utilities {
+
+  /* ── Keyframes ── */
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+      filter: blur(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-10px); }
+  }
+
+  @keyframes profile-pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50%       { opacity: 1;   transform: scale(1.06); }
+  }
+
+  /* ✅ Replaces Tailwind's missing animate-pulse for dots */
+  @keyframes dot-pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50%       { background-position: 100% 50%; }
+  }
+
+  @keyframes animated-border {
+    from { stroke-dashoffset: 0; }
+    to   { stroke-dashoffset: -1060; }
+  }
+
+  @keyframes marquee {
+    0%{
+      transform: translateX(0);
+    }
+    100%{
+      transform: translateX(-50%);
+    }
+  }
+
+  /* ── Utility classes ── */
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out both;
+  }
+
+  .animate-marquee{
+    animation: marquee 30s linear infinite;
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .profile-pulse {
+    animation: profile-pulse 3s ease-in-out infinite;
+  }
+
+  .dot-pulse {
+    animation: dot-pulse 1.5s ease-in-out infinite;
+  }
+
+  /* ✅ Single definition — includes background-size for animation to work */
+  .gradient-text {
+    background: linear-gradient(135deg, #1ea3cf, #a855f7, #1ea3cf);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 3s ease infinite;
+  }
+
+  html {
+  scroll-behavior: smooth;
+}
+  /* ── Animation delays ── */
+
+  .animation-delay-100 { animation-delay: 100ms; }
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-300 { animation-delay: 300ms; }
+  .animation-delay-400 { animation-delay: 400ms; }
+  .animation-delay-600 { animation-delay: 600ms; }
+  .animation-delay-800 { animation-delay: 800ms; }
+
+  /* ── Animated border button ── */
+
+  .animate-border-path {
+    animation: animated-border 2.5s linear infinite;
+  }
+
+  /* ✅ Single .animated-border:hover block — merged both duplicates */
+  .animated-border:hover {
+    background-color: color-mix(in srgb, #1ea3cf 15%, transparent);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 0 24px color-mix(in srgb, #1ea3cf 25%, transparent);
+  }
+
+  .animated-border:hover .animate-border-path,
+  .group:hover .animate-border-path {
+    animation: animated-border 1.2s linear infinite;
+  }
+}
